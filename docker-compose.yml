@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_DB}
+    container_name: blog_app_db
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks:
+      blog_network:
+        ipv4_address: 173.18.1.10
+  dev:
+    container_name: blog_app_api
+    image: blog_app_api:1.0.0
+    environment:
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_DB=${DATABASE_DB}
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    command: npm run start:dev
+    ports:
+      - 8080:8080
+      - 3000:3000
+      - 9229:9229
+    volumes:
+      - .:/blog_app_nest_js/src/app
+      - /blog_app_nest_js/src/app/node_modules
+    restart: unless-stopped
+    networks:
+      blog_network:
+        ipv4_address: 173.18.1.11
+
+networks:
+  blog_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 173.18.1.0/16
