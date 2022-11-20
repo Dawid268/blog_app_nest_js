@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { AutoMap } from '@automapper/classes';
 import { IsString, IsNotEmpty, IsBoolean, IsObject } from 'class-validator';
 
-import { ArticleTranslationResponse } from 'src/features/article-translations/dto';
+import { ArticleTranslationResponse } from '@/features/article-translations/dto';
 
 export class ArticleSimpleResponse {
   @ApiProperty()

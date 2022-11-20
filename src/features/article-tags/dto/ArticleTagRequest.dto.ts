@@ -1,11 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger';
-
 import { AutoMap } from '@automapper/classes';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class ArticleTagRequest {
   @ApiProperty()
   @AutoMap()
-  public namePl?: string;
+  public id?: string;
+
+  @ApiProperty()
+  @AutoMap()
+  public namePl: string;
 
   @ApiProperty()
   @AutoMap()

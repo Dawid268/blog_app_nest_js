@@ -10,9 +10,9 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-
-import { ArticleTag } from 'src/features/article-tags/entity/article-tag.entity';
-import { ArticleTranslate } from 'src/features/article-translations/entity/article-translation.entity';
+import { IsBoolean, IsNotEmpty, IsNotEmptyObject, IsNumber, IsObject, IsString } from 'class-validator';
+import { ArticleTag } from '@/features/article-tags/entity/article-tag.entity';
+import { ArticleTranslate } from '@/features/article-translations/entity/article-translation.entity';
 
 @Entity()
 export class Article {
@@ -22,10 +22,12 @@ export class Article {
 
   @Column('int')
   @AutoMap()
+  @IsNumber()
   public likes = 0;
 
   @Column({ default: false })
   @AutoMap()
+  @IsBoolean()
   public isPublic: boolean;
 
   @CreateDateColumn()
@@ -36,17 +38,22 @@ export class Article {
   @AutoMap()
   public updated: Date;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   @AutoMap()
+  @IsNotEmpty()
+  @IsString()
   public imageUrl: string;
 
   @OneToOne(() => ArticleTranslate, { cascade: true })
   @JoinColumn()
   @AutoMap(() => ArticleTranslate)
+  @IsObject()
+  @IsNotEmptyObject()
   public translations: ArticleTranslate;
 
   @ManyToMany(() => ArticleTag, { cascade: ['insert'] })
   @JoinTable()
   @AutoMap(() => ArticleTag)
+  @IsObject()
   public tags: ArticleTag[];
 }
