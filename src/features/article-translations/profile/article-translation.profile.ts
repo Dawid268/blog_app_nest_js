@@ -3,11 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { AutomapperProfile, InjectMapper } from '@automapper/nestjs';
 import { createMap, forMember, ignore, mapFrom, Mapper, MappingProfile } from '@automapper/core';
 
+import { ArticleTranslationResponse, ArticleTranslationRequest } from '../dto';
 import { ArticleTranslate } from '../entity/article-translation.entity';
-import { ArticleTranslationRequest, ArticleTranslationResponse } from '../dto';
 
 @Injectable()
-export class ArticleTagProfile extends AutomapperProfile {
+export class ArticleTranslationProfile extends AutomapperProfile {
   constructor(@InjectMapper() mapper: Mapper) {
     super(mapper);
   }

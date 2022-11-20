@@ -3,12 +3,12 @@ import { ApiProperty } from '@nestjs/swagger';
 import { AutoMap } from '@automapper/classes';
 import { IsNotEmpty } from 'class-validator';
 
-import { ArticleTagRequest } from 'src/features/article-tags/dto';
-import { ArticleTranslationRequest } from 'src/features/article-translations/dto';
+import { ArticleTagRequest } from '@features/article-tags/dto';
+import { ArticleTranslationRequest } from '@features/article-translations/dto';
+
 
 export class ArticleRequest {
   @ApiProperty()
-  @IsNotEmpty()
   @AutoMap(() => ArticleTagRequest)
   public tags: ArticleTagRequest[];
 
@@ -16,4 +16,8 @@ export class ArticleRequest {
   @IsNotEmpty()
   @AutoMap(() => ArticleTranslationRequest)
   public translations: ArticleTranslationRequest;
+
+  constructor(tags: ArticleTagRequest[], translations: ArticleTranslationRequest) {
+    (this.tags = tags), (this.translations = translations);
+  }
 }

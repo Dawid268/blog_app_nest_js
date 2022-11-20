@@ -22,11 +22,11 @@ export class ArticleTranslationRequest {
   @IsString()
   @IsOptional()
   @AutoMap()
-  public titleEn: ArticleTranslate['title_en'];
+  public titleEn?: ArticleTranslate['title_en'];
 
   @ApiProperty({ type: 'string' })
   @IsString()
   @IsOptional()
   @AutoMap()
-  public contentEn: ArticleTranslate['content_en'];
+  public contentEn?: ArticleTranslate['content_en'];
 }

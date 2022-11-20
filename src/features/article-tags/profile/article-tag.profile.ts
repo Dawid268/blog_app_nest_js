@@ -5,7 +5,7 @@ import { createMap, forMember, ignore, mapFrom, Mapper, MappingProfile } from '@
 
 import { ArticleTagRequest, ArticleTagResponse } from '../dto';
 import { ArticleTag } from '../entity/article-tag.entity';
-import { Lang } from 'src/shared/enums';
+import { Lang } from '@/shared/enums';
 
 export const languageMapper = (articleTag: ArticleTag, language: string): string => {
   return !language ? articleTag.tagNamePl : language === Lang.PL ? articleTag.tagNamePl : articleTag.tagNameEn;
@@ -25,7 +25,6 @@ export class ArticleTagProfile extends AutomapperProfile {
         ArticleTag,
         forMember((dest) => dest.created, ignore()),
         forMember((dest) => dest.updated, ignore()),
-        forMember((dest) => dest.id, ignore()),
         forMember(
           (dest) => dest.tagNamePl,
           mapFrom((source) => source.namePl)
